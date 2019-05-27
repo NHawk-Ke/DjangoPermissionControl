@@ -25,8 +25,8 @@ FuncToPerm.json
 3. Inside your `views.py` add the line `from permission_control import PermissionControlMixin`
 4. For each function-based view that you want to have permission add `@PermissionControlMixin.check_permission()` on top as decorator
 5. For each class-based view just inherited `PermissionControlMixin`
-Make sure you have `login_required` before the permission decorator takes place 
-Once you finished all the steps described above you are good to go.
+
+Make sure you have `login_required` before the permission decorator takes place. Once you finished all the steps described above you are good to go.
 
 ### PermList.json
 ```
