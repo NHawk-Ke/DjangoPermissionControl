@@ -38,17 +38,18 @@ Once you finished all the steps descriped above you are good to go.
 ]
 ```
 This file contains all the permissions that you want to use to check permissions for a user. You can add as many as you want. The app will dynamically create or delete permissions according to this file.
+P.S.: The format of this string does not matter
 
 ### GroupToPerm.json
 ```
 {
     "Group Name1": [
         "Custom.permission.name1",
-		"Custom.permission.name2",
+	"Custom.permission.name2",
     ],
     "Group Name2": [
-		"Custom.permission.name3",
-		"Custom.permission.name4",
+	"Custom.permission.name3",
+	"Custom.permission.name4",
     ]
 }
 ```
@@ -69,8 +70,9 @@ As you can see this file maps all the permissions to groups. You can just edit t
         "Custom.permission.name3"
     ],
     "namespace.FuncName3": [
-		    "Custom.permission.name4"
+        "Custom.permission.name4"
     ]
 }
 ```
 The app will use this file to check weather a certain user has the permission to access a function or not. This is your resposibility to update this file, if you update a function name or changed a permission name.
+P.S.: If you do not have a namespace, just leave it empty. e.g.(".my_function1"). This time the dot does matter.
