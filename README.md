@@ -22,7 +22,7 @@ FuncToPerm.json
 ```
 1. Edit the three files
 2. Run the command `python manage.py setuppermissions` to setup properly.
-3. Inside your views.py add the line `from permission_control import PermissionControlMixin`
+3. Inside your `views.py` add the line `from permission_control import PermissionControlMixin`
 4. For each function-based view that you want to have permission add `@PermissionControlMixin.check_permission()` on top as decorator
 5. For each class-based view just inheriened `PermissionControlMixin`
 
