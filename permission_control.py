@@ -2,7 +2,7 @@ import os
 import json
 from django.apps import AppConfig
 from django.http import Http404
-from my_project import settings
+from django.conf import settings
 from django.shortcuts import redirect
 
 
