@@ -1,10 +1,10 @@
 {
     "Group Name1": [
         "Custom.permission.name1",
-		"Custom.permission.name2",
+	"Custom.permission.name2",
     ],
     "Group Name2": [
-		"Custom.permission.name3",
-		"Custom.permission.name4",
+	"Custom.permission.name3",
+	"Custom.permission.name4",
     ]
 }
