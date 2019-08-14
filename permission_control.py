@@ -15,14 +15,11 @@ class PermissionControlMixin(object):
 
     def check_permission():
         def decorator(func):
-            def wrapper(request, *args, **kwargs):
-                # The two line below can be removed if login_required decorator is already used
-                if not request.user.is_authenticated:
-                    return redirect("login")
-                
+            def wrapper(request, *args, **kwargs):                
                 # Check if the system has loaded all permissions
                 if not settings.FuncToPerms:
                     PermissionControlMixin.initialize_permissions()
+                    
                 app_name = request.resolver_match.app_name
                 try:
                     for Perm in settings.FuncToPerms[app_name+"."+func.__name__]:
@@ -38,8 +35,10 @@ class PermissionControlMixin(object):
         return decorator
 
     def permission_check(self, user, request):
+        # Check if the system has loaded all permissions
         if not settings.FuncToPerms:
             PermissionControlMixin.initialize_permissions()
+            
         try:
             app_name = request.resolver_match.app_name
             for Perm in settings.FuncToPerms[app_name+"."+self.__class__.__name__]:
@@ -52,8 +51,6 @@ class PermissionControlMixin(object):
         return True
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect("login")
         if self.permission_check(request.user, request):
             return super(PermissionControlMixin, self).dispatch(request, *args, **kwargs)
 
