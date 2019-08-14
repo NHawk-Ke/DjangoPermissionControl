@@ -20,12 +20,29 @@ PermList.json
 GroupToPerm.json
 FuncToPerm.json
 ```
-1. Edit the three files
-2. Run the command `python manage.py setuppermissions` to setup properly.
-3. Inside your `views.py` add the line `from permission_control import PermissionControlMixin`
-4. For each function-based view that you want to have permission add `@PermissionControlMixin.check_permission()` on top as decorator
-5. For each class-based view just inherited `PermissionControlMixin`
-6. Make sure you have `login_required` before the permission decorator takes place. 
+1. Add `DjangoPermissionControl` to `INSTALLED_APPS` in `settings.py`
+```
+INSTALLED_APPS = [
+    ......
+    'DjangoPermissionControl',
+    ......
+]
+```
+2. Edit the three files
+3. Run the command `python manage.py setuppermissions` to setup properly.
+4. Inside your `views.py` add the line `from permission_control import PermissionControlMixin`
+5. For each function-based view that you want to have permission add `@PermissionControlMixin.check_permission()` on top as decorator
+6. For each class-based view just inherited `PermissionControlMixin`
+7. Make sure you have `login_required` before the permission decorator takes place. e.g.
+```
+@login_required(login_url=login_url)
+@PermissionControlMixin.check_permission()
+def example_view(request):
+    ...
+or
+class ExampleView(LoginRequiredMixin, PermissionControlMixin, FormView):
+    ...
+```
 
 Just add users to group for larger use.
 Once you finished all the steps described above you are good to go.
