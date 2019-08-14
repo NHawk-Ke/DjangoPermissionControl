@@ -1,8 +1,8 @@
 {
 
     "namespace.Func1": [
-		"Custom.permission.name1",
-		"Custom.permission.name2"
+	"Custom.permission.name1",
+	"Custom.permission.name2"
     ],
     "namespace.Func2": [
         "Custom.permission.name3"
@@ -11,7 +11,7 @@
         "Custom.permission.name3"
     ],
     "namespace.Func3": [
-		"Custom.permission.name4"
+	"Custom.permission.name4"
     ]
 }
 
