@@ -1,28 +1,29 @@
 import os
 import json
-from django.apps import AppConfig
 from django.http import Http404
 from django.conf import settings
-from django.shortcuts import redirect
+
+FuncToPerms = {}
 
 
 class PermissionControlMixin(object):
 
     def initialize_permissions():
-        DATA_PATH = os.path.join(settings.BASE_DIR, 'DjangoPermissionControl/FuncToPerm.json')
-        with open(DATA_PATH, 'r') as json_file:
-            settings.FuncToPerms = json.load(json_file)
+        data_path = os.path.join(settings.BASE_DIR, 'DjangoPermissionControl/FuncToPerm.json')
+        with open(data_path, 'r') as json_file:
+            global FuncToPerms
+            FuncToPerms = json.load(json_file)
 
     def check_permission():
         def decorator(func):
             def wrapper(request, *args, **kwargs):                
                 # Check if the system has loaded all permissions
-                if not settings.FuncToPerms:
+                if not FuncToPerms:
                     PermissionControlMixin.initialize_permissions()
                     
                 app_name = request.resolver_match.app_name
                 try:
-                    for Perm in settings.FuncToPerms[app_name+"."+func.__name__]:
+                    for Perm in FuncToPerms[app_name+"."+func.__name__]:
                         if not request.user.has_perm('global_permission.'+Perm):
                             raise Http404("You dont have permission: " + Perm)
                 except KeyError as e:
@@ -36,12 +37,12 @@ class PermissionControlMixin(object):
 
     def permission_check(self, user, request):
         # Check if the system has loaded all permissions
-        if not settings.FuncToPerms:
+        if not FuncToPerms:
             PermissionControlMixin.initialize_permissions()
             
         try:
             app_name = request.resolver_match.app_name
-            for Perm in settings.FuncToPerms[app_name+"."+self.__class__.__name__]:
+            for Perm in FuncToPerms[app_name+"."+self.__class__.__name__]:
                 if not user.has_perm('global_permission.'+Perm):
                     raise Http404("You don't have permission: " + Perm)
         except KeyError as e:
