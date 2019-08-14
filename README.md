@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     ......
 ]
 ```
-2. Edit the three files
+2. Edit the three json files
 3. Run the command `python manage.py setuppermissions` to setup properly.
 4. Inside your `views.py` add the line `from permission_control import PermissionControlMixin`
 5. For each function-based view that you want to have permission add `@PermissionControlMixin.check_permission()` on top as decorator
